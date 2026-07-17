@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import { errorHandler, notFoundHandler } from "@master-platform/shared-http";
 
 const app = express();
 
@@ -28,5 +29,8 @@ app.use(
 app.get("/health", (_req, res) => {
     res.json({ status: "ok", service: "auth-service" });
 });
+
+app.use(notFoundHandler);
+app.use(errorHandler({ serviceName: "auth-service" }));
 
 export default app;
