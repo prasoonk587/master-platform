@@ -22,3 +22,15 @@ model User {
 ```
 
 A service may only read/write its own prefixed tables; there are no cross-service foreign keys.
+
+## Adding a UI component
+
+`packages/shared-ui` is consumed from source by `apps/frontend-master` (via `transpilePackages`, no build step) — never build a component directly inside `frontend-master`. To add a new component:
+
+1. Generate it in `packages/shared-ui` with the shadcn CLI (`npx shadcn add <component>` from `packages/shared-ui`), which uses Radix Primitives as the base and the `radix-nova` style configured in `packages/shared-ui/components.json`.
+2. Move the generated file into the atomic-design layout (`src/atoms|molecules|organisms/<Component>/<Component>.tsx`) and adapt it to match existing components (relative imports, `cva`-based `variant`/`size` props covering every variant the design needs, `data-slot`/`data-variant`/`data-size` attributes) — see `atoms/Button/Button.tsx` as the reference.
+3. Add a barrel `index.ts` for the component and export it from the parent `atoms|molecules|organisms/index.ts`.
+4. Add `<Component>.stories.tsx` covering every variant, size, and state (see `atoms/Button/Button.stories.tsx`).
+5. Consume it in `frontend-master` via `@master-platform/shared-ui` — don't hand-roll a duplicate component in the app.
+
+Inside `shared-ui`, use relative imports (`../../lib/utils`), not a `@/*`-style alias — `frontend-master` defines its own `@/*` alias, and since `shared-ui` compiles from source into the app's build, the app's alias wins and shadows the package's, breaking the build.
