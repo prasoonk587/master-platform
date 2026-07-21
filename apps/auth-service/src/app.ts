@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 import { errorHandler, notFoundHandler } from "@master-platform/shared-http";
 import authRouter from "./routes/auth.routes";
+import organizationRouter from "./routes/organization.routes";
 import { swaggerSpec } from "./config/swagger";
 
 const app = express();
@@ -20,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-    "/api/auth",
+    "/api/v1/auth",
     rateLimit({
         windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
         max: Number(process.env.RATE_LIMIT_MAX) || 100,
@@ -28,7 +29,8 @@ app.use(
         legacyHeaders: false,
     })
 );
-app.use("/api/auth", authRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/organizations", organizationRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

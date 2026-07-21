@@ -35,7 +35,7 @@ const router = Router();
  *             details:
  *               type: object
  *
- * /api/auth/register:
+ * /api/v1/auth/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Auth]
@@ -85,7 +85,7 @@ router.post("/register", validateBody(registerSchema), register);
 
 /**
  * @openapi
- * /api/auth/login:
+ * /api/v1/auth/login:
  *   post:
  *     summary: Log in and receive a JWT access token
  *     tags: [Auth]
