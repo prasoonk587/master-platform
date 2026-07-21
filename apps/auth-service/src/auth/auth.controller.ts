@@ -3,7 +3,7 @@ import { asyncHandler, ConflictError, UnauthorizedError } from "@master-platform
 import { prisma } from "../lib/prisma";
 import { comparePassword, hashPassword } from "../utils/password";
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/jwt";
-import type { LoginInput, RefreshInput, RegisterInput } from "../schemas/auth.schema";
+import type { LoginInput, RefreshInput, RegisterInput } from "./auth.schema";
 
 export const register = asyncHandler(
     async (req: Request<unknown, unknown, RegisterInput>, res: Response) => {

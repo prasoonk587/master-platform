@@ -1,10 +1,7 @@
 import type { Request, Response } from "express";
 import { asyncHandler, ConflictError, NotFoundError } from "@master-platform/shared-http";
 import { prisma } from "../lib/prisma";
-import type {
-    CreateOrganizationInput,
-    UpdateOrganizationInput,
-} from "../schemas/organization.schema";
+import type { CreateOrganizationInput, UpdateOrganizationInput } from "./organization.schema";
 
 export const listOrganizations = asyncHandler(async (_req: Request, res: Response) => {
     const organizations = await prisma.organization.findMany({ orderBy: { createdAt: "desc" } });

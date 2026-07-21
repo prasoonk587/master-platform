@@ -22,5 +22,5 @@ export const swaggerSpec = swaggerJSDoc({
             },
         },
     },
-    apis: [path.join(__dirname, "../routes/*.{ts,js}")],
+    apis: [path.join(__dirname, "../*/*.routes.{ts,js}")],
 });

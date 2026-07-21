@@ -4,8 +4,8 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 import { errorHandler, notFoundHandler } from "@master-platform/shared-http";
-import authRouter from "./routes/auth.routes";
-import organizationRouter from "./routes/organization.routes";
+import authRouter from "./auth/auth.routes";
+import organizationRouter from "./organization/organization.routes";
 import { swaggerSpec } from "./config/swagger";
 
 const app = express();

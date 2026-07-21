@@ -5,9 +5,9 @@ import {
     getOrganization,
     listOrganizations,
     updateOrganization,
-} from "../controllers/organization.controller";
+} from "./organization.controller";
 import { validateBody } from "../middleware/validate";
-import { createOrganizationSchema, updateOrganizationSchema } from "../schemas/organization.schema";
+import { createOrganizationSchema, updateOrganizationSchema } from "./organization.schema";
 
 const router = Router();
 
