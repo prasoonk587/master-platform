@@ -29,12 +29,16 @@ export const login = asyncHandler(
     async (req: Request<unknown, unknown, LoginInput>, res: Response) => {
         const { email, password } = req.body;
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({ where: { email, isDeleted: false } });
         if (!user || !(await comparePassword(password, user.passwordHash))) {
             throw new UnauthorizedError("Invalid email or password");
         }
 
-        const accessToken = signAccessToken({ sub: user.id, email: user.email });
+        const accessToken = signAccessToken({
+            sub: user.id,
+            email: user.email,
+            organizationId: user.organizationId,
+        });
         const refreshToken = signRefreshToken({ sub: user.id });
 
         res.json({
@@ -56,12 +60,16 @@ export const refresh = asyncHandler(
             throw new UnauthorizedError("Invalid or expired refresh token");
         }
 
-        const user = await prisma.user.findUnique({ where: { id: payload.sub } });
+        const user = await prisma.user.findUnique({ where: { id: payload.sub, isDeleted: false } });
         if (!user) {
             throw new UnauthorizedError("Invalid or expired refresh token");
         }
 
-        const accessToken = signAccessToken({ sub: user.id, email: user.email });
+        const accessToken = signAccessToken({
+            sub: user.id,
+            email: user.email,
+            organizationId: user.organizationId,
+        });
         const newRefreshToken = signRefreshToken({ sub: user.id });
 
         res.json({

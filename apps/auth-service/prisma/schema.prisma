@@ -8,13 +8,16 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
-  mobile       String?  @unique
-  passwordHash String
-  name         String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String        @id @default(uuid())
+  email          String        @unique
+  mobile         String?       @unique
+  passwordHash   String
+  name           String?
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  isDeleted      Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
   @@map("auth_users")
 }
@@ -24,6 +27,7 @@ model Organization {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  users     User[]
 
   @@map("auth_organizations")
 }

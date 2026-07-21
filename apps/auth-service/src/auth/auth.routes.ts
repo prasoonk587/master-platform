@@ -134,7 +134,7 @@ router.post("/login", validateBody(loginSchema), login);
 
 /**
  * @openapi
- * /api/auth/refresh:
+ * /api/v1/auth/refresh:
  *   post:
  *     summary: Exchange a refresh token for a new access token
  *     tags: [Auth]

@@ -16,6 +16,7 @@ const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN ?? "7d";
 export interface AccessTokenPayload {
     sub: string;
     email: string;
+    organizationId: string | null;
 }
 
 export interface RefreshTokenPayload {
