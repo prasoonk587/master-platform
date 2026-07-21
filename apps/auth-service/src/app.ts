@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import { errorHandler, notFoundHandler } from "@master-platform/shared-http";
 import authRouter from "./auth/auth.routes";
 import organizationRouter from "./organization/organization.routes";
+import userRouter from "./user/user.routes";
 import { swaggerSpec } from "./config/swagger";
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(
 );
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/organizations", organizationRouter);
+app.use("/api/v1/users", userRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
