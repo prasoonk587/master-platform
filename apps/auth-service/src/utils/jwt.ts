@@ -9,7 +9,7 @@ function requireEnv(name: string): string {
 }
 
 const JWT_SECRET = requireEnv("JWT_SECRET");
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN ?? "15m";
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN ?? "24hr";
 const REFRESH_TOKEN_SECRET = requireEnv("REFRESH_TOKEN_SECRET");
 const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN ?? "7d";
 
